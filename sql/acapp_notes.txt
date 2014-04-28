@@ -1,0 +1,100 @@
+
+mysql -u root -p
+root
+
+create database acapp;
+use acapp;  
+
+CREATE USER 'acappuser'@'bobdev' IDENTIFIED BY 'acappuser';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'acappuser'@'bobdev';
+GRANT SELECT,INSERT,UPDATE,DELETE,LOCK TABLES,EXECUTE ON acapp.* TO 'acappuser'@'bobdev';
+GRANT CREATE,DROP ON acapp.* TO 'acappuser'@'bobdev';
+GRANT ALTER ON acapp.* TO 'acappuser'@'bobdev';
+FLUSH PRIVILEGES;
+
+mysql -h bobdev -u acappuser -D acapp -p
+mysql -u acappuser -D acapp -p
+
+
+CREATE TABLE restaurant (
+    id bigint(20) NOT NULL AUTO_INCREMENT, 
+    version bigint(20),
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255), 
+    city VARCHAR(50) NOT NULL, 
+    state VARCHAR(20) NOT NULL, 
+    zip VARCHAR(20) NOT NULL, 
+    latitude FLOAT( 10, 6 ) NOT NULL,
+    longitude FLOAT( 10, 6 ) NOT NULL,
+    green_cnt INT,
+    yellow_cnt INT,
+    red_cnt INT,
+    PRIMARY KEY (id));
+
+CREATE TABLE inspection (
+    id bigint(20) NOT NULL AUTO_INCREMENT, 
+    version bigint(20),
+    date datetime,
+    service VARCHAR(10), 
+    description VARCHAR(255), 
+    grade VARCHAR(10), 
+    restaurant_id bigint(20),
+    PRIMARY KEY (id),
+    CONSTRAINT FK_INSPECT_RESTAUR FOREIGN KEY (restaurant_id) references restaurant (id)
+);
+
+ALTER TABLE restaurant ADD COLUMN yelp_rating INT;
+ALTER TABLE restaurant ADD COLUMN yelp_dollars INT;
+
+
+GRADE is grading system: G - Green, Y - Yellow, R - Red, have some old data with P for Pass and some with empty grade
+
+DROP TABLE inspection;
+DROP TABLE restaurant;
+
+SELECT COUNT(*) FROM restaurant;
+use acapp; 
+
+SELECT * FROM restaurant;
+SELECT * FROM inspection;
+SELECT * FROM restaurant LIMIT 10;
+
+SELECT count(*) FROM restaurant;
+SELECT count(*) FROM inspection;
+
+SELECT id from restaurant WHERE NAME = 'SOME NAME';
+SELECT * from restaurant WHERE NAME LIKE "Sozo%";
+
+
+SELECT zip, COUNT(zip) FROM restaurant GROUP BY zip ORDER BY zip;
+SELECT zip, COUNT(zip) FROM restaurant GROUP BY zip ORDER BY COUNT(zip) DESC;
+
+SELECT grade, COUNT(grade) FROM inspection GROUP BY grade;
+
+select city, COUNT(city) FROM restaurant GROUP BY city;
+
+select distinct zip, city, state from restaurant order by zip desc;
+select zip, city, state, count(zip) from restaurant group by zip order by zip desc;
+
+select name, latitude, longitude FROM restaurant WHERE zip = '95483';
+ 
+
+badly formatted rest/inspection recs: 9269
+good rest recs: 5368
+total valid inspections = 51,982
+
+-----------------------------------------------------
+
+Connect to MySQL database
+
+1) add the driver jar to acapp/lib
+
+2) edit /acapp/grails-app/conf/DataSource.groovy
+
+	a) change the driver in driverClassName in dataSource {}
+	b) change the environments {} for all three
+
+
+
+
+
