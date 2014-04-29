@@ -16,4 +16,14 @@ class RestaurantService {
 		restList
 	}
 	
+	def Restaurant getByName(String name) {
+		def result = Restaurant.findByName(name)
+		result
+	}
+	
+	def Restaurant findById(Integer myId) {
+		def result = Restaurant.get(myId)
+		result
+	}
+	
 }

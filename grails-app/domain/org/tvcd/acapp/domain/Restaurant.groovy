@@ -14,7 +14,10 @@ class Restaurant {
 	Integer redCnt
 	Integer yelpRating
 	Integer yelpDollars
-
+	String currGrade
+	
+	static hasMany = [ inspections : Inspection ]
+	
     static constraints = {
     }
 }

@@ -7,9 +7,7 @@ class Inspection {
 	String description
 	String grade
 	
-	static belongsTo = [
-		restaurant : Restaurant
-	]
+	static belongsTo = [ restaurant : Restaurant ]
 	
     static constraints = {
     }
