@@ -23,28 +23,28 @@
 					});
 					var random = Math.floor((Math.random()*10)+1); 
 					var infowindow = new google.maps.InfoWindow();
-					var marker, i;
+					var marker, i, currGrade;
 					for (i = 0; i < response.length; i++) {  
-						random = Math.floor((Math.random()*3)+1);
-						if (random == 1){ 
+						currGrade = response[i][4];
+						if (currGrade == "G" || currGrade == "" || currGrade == " "){ 
 								marker = new google.maps.Marker({
 								position: new google.maps.LatLng(response[i][1], response[i][2]),
 								map: map,
-								icon: 'http://localhost:8080/acapp/images/marker1.png'
+								icon: 'http://localhost:8080/acapp/images/green_marker2.png'
 							});
 						}
-						if (random == 2){ 
+						if (currGrade == "R"){ 
 								marker = new google.maps.Marker({
 								position: new google.maps.LatLng(response[i][1], response[i][2]),
 								map: map,
-								icon: 'http://localhost:8080/acapp/images/marker2.png'
+								icon: 'http://localhost:8080/acapp/images/red_marker.png'
 							});
 						}
-						if (random == 3){ 
+						if (currGrade == "Y"){ 
 								marker = new google.maps.Marker({
 								position: new google.maps.LatLng(response[i][1], response[i][2]),
 								map: map,
-								icon: 'http://localhost:8080/acapp/images/marker3.png'
+								icon: 'http://localhost:8080/acapp/images/yellow_marker.png'
 							});
 						}
 						google.maps.event.addListener(marker, 'click', (function(marker, i) {

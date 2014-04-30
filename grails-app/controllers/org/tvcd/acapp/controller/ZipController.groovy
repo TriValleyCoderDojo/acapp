@@ -40,6 +40,7 @@ class ZipController {
 			nextList << r.latitude
 			nextList << r.longitude
 			nextList << r.id
+			nextList << r.currGrade
 			retList << nextList
 		} 
 		
