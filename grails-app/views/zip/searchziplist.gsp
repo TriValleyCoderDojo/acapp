@@ -19,4 +19,4 @@
 			</g:each>
 		</table>
 	</body>
-</html>cleaned
+</html>
