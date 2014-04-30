@@ -49,7 +49,6 @@ ALTER TABLE restaurant ADD COLUMN yelp_dollars INT;
 ALTER TABLE restaurant ADD COLUMN curr_grade VARCHAR(10);
 
 
-
 GRADE is grading system: G - Green, Y - Yellow, R - Red, have some old data with P for Pass and some with empty grade
 
 DROP TABLE inspection;
