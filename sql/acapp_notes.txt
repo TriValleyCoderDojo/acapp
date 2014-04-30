@@ -84,7 +84,8 @@ select name, latitude, longitude FROM restaurant WHERE zip = '95483';
 
 SELECT * FROM inspection where restaurant_id = 2;
 
-SELECT id, name, curr_grade, green_cnt, yellow_cnt, red_cnt FROM restaurant WHERE curr_grade = 'Y';
+SELECT id, name, zip, curr_grade, green_cnt, yellow_cnt, red_cnt FROM restaurant WHERE curr_grade = 'R';
+SELECT id, name, zip, curr_grade, count(zip) FROM restaurant WHERE curr_grade = 'R' group by zip;
  
 
 badly formatted rest/inspection recs: 9269
