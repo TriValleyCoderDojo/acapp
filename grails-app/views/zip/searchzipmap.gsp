@@ -7,12 +7,6 @@
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
 		<r:layoutResources/>
 		<g:javascript>
-		
-		
-		
-		
-		
-		
 		function callAjax(zipcode){
 			//alert("Enter callAjax with " + zipcode)
 			$.ajax({
@@ -69,6 +63,13 @@
 		</g:javascript>
 	</head>
 	<body>
+		<div class="nav" role="navigation">
+			<ul>
+				<li><a class="home" href="${createLinkTo(dir:'')}">Home</a></a></li>
+				<li><a href="${createLink(uri:'/zip/index.gsp')}">By Zip Code</a></li>
+				<li><a href="${createLink(uri:'/restaurant/index.gsp')}">By Name</a></li>
+			</ul>
+		</div>
 		<H4>Enter Zip Code</H4>
 		<form name='mapForm'>
 			<input type="text" id="formValueId" name="valueId"/>
