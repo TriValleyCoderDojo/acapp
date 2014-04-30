@@ -81,6 +81,10 @@ select distinct zip, city, state from restaurant order by zip desc;
 select zip, city, state, count(zip) from restaurant group by zip order by zip desc;
 
 select name, latitude, longitude FROM restaurant WHERE zip = '95483';
+
+SELECT * FROM inspection where restaurant_id = 2;
+
+SELECT id, name, curr_grade, green_cnt, yellow_cnt, red_cnt FROM restaurant WHERE curr_grade = 'Y';
  
 
 badly formatted rest/inspection recs: 9269
