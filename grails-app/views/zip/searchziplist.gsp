@@ -13,9 +13,13 @@
 			</ul>
 		</div>
 		<table>
-			<tr><th>Name</th><th>Longitude</th><th>Latitude</th></tr>
+			<tr><th>Name</th><th>Address</th><th>City</th><th>Health Rating</th></tr>
 			<g:each in="${restList}" var="r">
-			<tr><td>${r.name}</td><td>${r.latitude}</td><td>${r.longitude}</td></tr>
+			<g:set var="myid" value="${r.id}" />
+			<tr>
+				<td><a href="${createLink(action: 'getDetail', controller: 'restaurant', params:[id:myid])}" target="_blank">${r.name}</a></td>
+				<td>${r.address}</td><td>${r.city}</td><td>${r.currGrade}</td>
+			</tr>
 			</g:each>
 		</table>
 	</body>

@@ -22,7 +22,7 @@ class RestaurantService {
 		result
 	}
 	
-	def Restaurant findById(Integer myId) {
+	def Restaurant getById(Integer myId) {
 		def result = Restaurant.get(myId)
 		result
 	}

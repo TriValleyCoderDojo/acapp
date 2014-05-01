@@ -4,6 +4,20 @@
 		<meta name="layout" content="main"/>
 		<title>Restaurant Search</title>
 	</head>
+	<style>
+	H1 {
+	"font-family: Arial"
+	
+	}
+	
+	p {
+	"font-family: Arial"
+	}
+	
+	label {
+	"font-family: Arial"
+	}
+	</style>
 	<body>
 		<div class="nav" role="navigation">
 			<ul>

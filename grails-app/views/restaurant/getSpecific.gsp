@@ -24,6 +24,15 @@
 							<td valign="top" class="name">Address:</td>
 							<td valign="top" class="value">${restDetail.address}</td>
 						</tr>
+						<tr class="prop">
+							<td valign="top" class="name">Zipcode:</td>
+							<td valign="top" class="value">${restDetail.zip}</td>
+						</tr>
+						<tr class="prop">
+							<td valign="top" class="name">Health Rating:</td>
+							<td valign="top" class="value">${restDetail.currGrade}</td>
+						</tr>
+
 					</tbody>
 				</table>
 			</div>
