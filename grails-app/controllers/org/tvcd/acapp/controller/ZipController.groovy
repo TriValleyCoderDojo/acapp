@@ -31,19 +31,17 @@ class ZipController {
 	def getMapData() {
 		
 		def tZip = params.zipcode
-		
 		def restList = restaurantService.findZipCodes(tZip)
-		def retList = []
-		for (r in restList){
-			def nextList = []
-			nextList << r.name
-			nextList << r.latitude
-			nextList << r.longitude
-			nextList << r.id
-			nextList << r.currGrade
-			retList << nextList
-		} 
-		
-		render retList as JSON
+//		def retList = []
+//		for (r in restList){
+//			def nextList = []
+//			nextList << r.name
+//			nextList << r.latitude
+//			nextList << r.longitude
+//			nextList << r.id
+//			nextList << r.currGrade
+//			retList << nextList
+//		} 
+		render restList  as JSON
 	}
 }
