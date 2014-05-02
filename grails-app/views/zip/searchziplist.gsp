@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>rest
 <html>
 	<head>
 		<meta name="layout" content="main"/>
