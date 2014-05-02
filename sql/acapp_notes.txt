@@ -29,6 +29,8 @@ CREATE TABLE restaurant (
     green_cnt INT,
     yellow_cnt INT,
     red_cnt INT,
+    phone VARCHAR(255),
+    url VARCHAR(255),
     PRIMARY KEY (id));
 
 CREATE TABLE inspection (
@@ -44,10 +46,36 @@ CREATE TABLE inspection (
 );
 
 
-ALTER TABLE restaurant ADD COLUMN yelp_rating INT;
-ALTER TABLE restaurant ADD COLUMN yelp_dollars INT;
+ALTER TABLE restaurant ADD COLUMN phone VARCHAR(255);
+ALTER TABLE restaurant ADD COLUMN url VARCHAR(255);
+
 ALTER TABLE restaurant ADD COLUMN curr_grade VARCHAR(10);
 
+ALTER TABLE restaurant DROP COLUMN yelp_rating;
+ALTER TABLE restaurant DROP COLUMN yelp_dollars;
+
+ALTER TABLE restaurant ADD COLUMN phone VARCHAR(255);
+ALTER TABLE restaurant ADD COLUMN url VARCHAR(255);
+UPDATE restaurant SET phone="";
+UPDATE restaurant SET url="";
+
+
+CREATE TABLE review (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  version bigint(20) NOT NULL,
+  cuisine varchar(255) NOT NULL,
+  dollar_rating int(11) NOT NULL,
+  rating DECIMAL(3,1) NOT NULL,
+  restaurant_id bigint(20) NOT NULL,
+  review_type varchar(255) NOT NULL,
+  url varchar(255) NOT NULL,
+  PRIMARY KEY (id),
+  KEY FKC84EF75894B6F2F4 (restaurant_id),
+  CONSTRAINT FKC84EF75894B6F2F4 FOREIGN KEY (restaurant_id) REFERENCES restaurant (id)
+);
+
+
+ALTER TABLE review MODIFY rating DECIMAL(3,1);
 
 GRADE is grading system: G - Green, Y - Yellow, R - Red, have some old data with P for Pass and some with empty grade
 
@@ -81,11 +109,48 @@ select zip, city, state, count(zip) from restaurant group by zip order by zip de
 
 select name, latitude, longitude FROM restaurant WHERE zip = '95483';
 
-SELECT * FROM inspection where restaurant_id = 2;
+SELECT * FROM restaurant where id = 4325;
+SELECT * FROM inspection where restaurant_id = 4325;
+SELECT * FROM review where restaurant_id = 4325;
 
 SELECT id, name, zip, curr_grade, green_cnt, yellow_cnt, red_cnt FROM restaurant WHERE curr_grade = 'R';
 SELECT id, name, zip, curr_grade, count(zip) FROM restaurant WHERE curr_grade = 'R' group by zip;
- 
+
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
+values (1, 1, "American", 3, 3, 2, "Google", "www.someplace.com");
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
+values (2, 1, "Western", 3, 3, 2, "Yelp", "www.someplace.com");
+
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
+values (3, 1, "American", 3, 3, 4325, "Google", "www.someplace.com");
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
+values (4, 1, "Western", 3, 3, 4325, "Yelp", "www.someplace.com");
+
+
+UPDATE restaurant SET phone="(925) 484-5588" WHERE id = 4325;
+UPDATE restaurant SET url="http://www.urbanspoon.com/cities/6-sf-bay-area/restaurants/764695-sozo-sushi-restaurant/menu" WHERE id = 4325;
+
+
+UPDATE review SET url="http://www.yelp.com/biz/sozo-sushi-restaurant-pleasanto" WHERE id = 4;
+UPDATE review SET rating=3.5, SET dollar_rating =2  WHERE id = 4;
+
+
+select * from review where restaurant_id = 2;
+
+select * from restaurant as rest, review as rev where rest.id = rev.restaurant_id;
+
+name = SOZO SUSHI
+id - 4325
+phone - (925) 484-5588
+url - http://www.urbanspoon.com/cities/6-sf-bay-area/restaurants/764695-sozo-sushi-restaurant/menu
+
+yelp url - http://www.yelp.com/biz/sozo-sushi-restaurant-pleasanton
+yelp rating - 3.5
+yelp dollars - 2
+
+google url - https://www.google.com/search?q=sql+drop+column&oq=SQL+drop+col&aqs=chrome.1.69i57j0l5.6758j0j8&sourceid=chrome&espv=2&es_sm=119&ie=UTF-8#q=sozo+sushi&lrd=lrd
+google rating - 3.9
+google dollars - 1
 
 badly formatted rest/inspection recs: 9269
 good rest recs: 5368

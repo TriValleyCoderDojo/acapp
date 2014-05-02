@@ -12,11 +12,13 @@ class Restaurant {
 	Integer greenCnt
 	Integer yellowCnt
 	Integer redCnt
-	Integer yelpRating
-	Integer yelpDollars
+	//Integer yelpRating
+	//Integer yelpDollars
 	String currGrade
+	String phone
+	String url
 	
-	static hasMany = [ inspections : Inspection ]
+	static hasMany = [ inspections : Inspection, reviews : Review ]
 	
     static constraints = {
     }

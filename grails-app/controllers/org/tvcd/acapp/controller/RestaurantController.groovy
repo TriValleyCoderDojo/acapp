@@ -8,7 +8,7 @@ class RestaurantController {
 	
 	def getSpecific() {
 		def restName = params.rest_name
-		def restDetail = restaurantService.getByName(restName)		
+		def restDetail = restaurantService.getByName(restName)
 		[ restDetail:restDetail ]
 	}
 	
