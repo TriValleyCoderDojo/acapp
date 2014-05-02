@@ -13,37 +13,62 @@
 			</ul>
 		</div>
 		<div class="body">
-			<div class="dialog">
+			<div class="table">
 				<table>
 					<tbody>
-						<tr class="prop">
-							<td valign="top" class="name">Name:</td>
-							<td valign="top" class="value">${restDetail.name}</td>
+						<tr>
+							<td>Name:</td>
+							<td>${restDetail.name}</td>
 						</tr>
-						<tr class="prop">
-							<td valign="top" class="name">Address:</td>
-							<td valign="top" class="value">${restDetail.address}</td>
+						<tr>
+							<td>Address:</td>
+							<td>${restDetail.address}</td>
 						</tr>
-						<tr class="prop">
-							<td valign="top" class="name">Zipcode:</td>
-							<td valign="top" class="value">${restDetail.zip}</td>
+						<tr>
+							<td>Zipcode:</td>
+							<td>${restDetail.zip}</td>
 						</tr>
-						<tr class="prop">
-							<td valign="top" class="name">Health Rating:</td>
-							<td valign="top" class="value">${restDetail.currGrade}</td>
+						<tr>
+							<td>Health Rating:</td>
+							<td>${restDetail.currGrade}</td>
 						</tr>
-						<tr class="prop">
-							<td valign="top" class="name">Number of Health Violations:</td>
-							<td valign="top" class="value">${restDetail.redCnt}</td>
+						<tr>
+							<td>Health Rating:</td>
+							<td>${restDetail.currGrade}</td>
 						</tr>
-						<tr class="prop">
-							<td valign="top" class="name">Number of Health Warnings:</td>
-							<td valign="top" class="value">${restDetail.yellowCnt}</td>
+						<tr>
+							<td>Number of Health Violations:</td>
+							<td>${restDetail.redCnt}</td>
 						</tr>
-
+						<tr>
+							<td>Number of Health Warnings:</td>
+							<td>${restDetail.yellowCnt}</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			<h2>Reviews</h2>
+			<div class="table">
+				<table>
+					<tr><th>Source</th><th>Rating</th></tr>
+					<g:each var="review" in="${restDetail.reviews}">
+					<tr><td>${review.reviewType}</td><td>${review.rating}</td></tr>
+					</g:each>
+				</table>
+			</div>
+			<h2>Inspections</h2>
+			<div class="table">
+				<table>
+					<tr><th>Date</th><th>Grade</th><th>Description</th></tr>
+					<g:each var="inspection" in="${restDetail.inspections}">
+					<tr>
+						<td><g:formatDate format="yyyy-MM-dd" date="${inspection.date}"/></td>
+						<td>${inspection.grade}</td><td>${inspection.description}</td>
+					</tr>
+					</g:each>
+				</table>
+			</div>
+			
 		</div>
 	</body>
 </html>
