@@ -53,15 +53,33 @@
 						
 						google.maps.event.addListener(marker, 'click', (function(marker, i) {
 							var infowindow = new google.maps.InfoWindow();
+							
+							var review1 = '<p>' + response[i].reviews[0].reviewType + ': Rating-'
+							if (response[i].reviews[0].dollarRating == -1){
+								review1 = review1 + 'Unknown, Dollars-Unknown';
+							}
+							else {
+								review1 = review1 + response[i].reviews[0].rating + ', Dollars-' + response[i].reviews[0].dollarRating;
+							}
+							review1 = review1 + '</p>';
+							
+							var review2 = '<p>' + response[i].reviews[1].reviewType + ': Rating-'
+							if (response[i].reviews[1].dollarRating == -1){
+								review2 = review2 + 'Unknown, Dollars-Unknown';
+							}
+							else {
+								review2 = review2 + response[i].reviews[1].rating + ', Dollars-' + response[i].reviews[1].dollarRating;
+							}
+							review2 = review2 + '</p>';
+							
 							var contentString = 
 								'<div id="content">'+
 								'<h3>' + response[i].name + '</h3>' +
 								'<p>Address: ' + response[i].address + '</p>' +
 								'<p>' + response[i].city + ', ' + response[i].zip + '</p>' +
-								'<p>Phone: TBD</p>' +
-								'<p>Last Inspection: ' + response[i].currGrade +'</p>' +
-								'<p>Google review: TBD</p>' +
-								'<p>Yelp review: TBD</p>' +
+								'<p>Phone: ' + response[i].phone + '</p>' +
+								'<p>Last Inspection: ' + response[i].currGrade + ' <a href="http://localhost:8080/acapp/restaurant/getDetail?id=' + response[i].id + '" target="_blank">More info</a></p>' +
+								review1 + review2 +
 								'</div>';
 							return function() {
 								infowindow.setContent(contentString);

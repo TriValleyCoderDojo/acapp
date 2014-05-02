@@ -13,8 +13,8 @@ class RestaurantDTO {
 	String currGrade
 	String phone
 	String url
-	List<ReviewDTO> reviews
 	
+	static hasMany = [ reviews : ReviewDTO ]
 	static mapWith = "none"
 	
 }

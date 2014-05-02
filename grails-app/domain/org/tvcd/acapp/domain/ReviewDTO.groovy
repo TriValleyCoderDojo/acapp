@@ -8,5 +8,6 @@ class ReviewDTO {
 	String cuisine
 	String url
 	
+	static belongsTo = [ restaurant : RestaurantDTO ] 
 	static mapWith = "none"
 }
