@@ -33,10 +33,6 @@
 							<td>${restDetail.currGrade}</td>
 						</tr>
 						<tr>
-							<td>Health Rating:</td>
-							<td>${restDetail.currGrade}</td>
-						</tr>
-						<tr>
 							<td>Number of Health Violations:</td>
 							<td>${restDetail.redCnt}</td>
 						</tr>
