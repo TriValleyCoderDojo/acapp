@@ -8,7 +8,7 @@
 		<r:layoutResources/>
 		<g:javascript>
 		function callAjax(zipcode, usegeo){
-			alert("Enter callAjax with " + zipcode + " and " + usegeo)
+		//	alert("Enter callAjax with " + zipcode + " and " + usegeo)
 			$.ajax({
 				url:"${g.createLink(controller:'zip',action:'getMapData')}",
 				type:"post",
