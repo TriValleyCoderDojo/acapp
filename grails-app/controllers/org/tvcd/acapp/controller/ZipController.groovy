@@ -5,6 +5,7 @@ import grails.converters.JSON
 import org.tvcd.acapp.domain.RestaurantDTO
 import org.tvcd.acapp.domain.Review
 import org.tvcd.acapp.domain.ReviewDTO
+import org.tvcd.acapp.domain.SearchResultsDTO
 import org.tvcd.acapp.domain.ZipCodeDTO
 import org.tvcd.acapp.service.RestaurantService
 
@@ -34,10 +35,28 @@ class ZipController {
 	
 	def getMapData() {
 		
-		def tZip = params.zipcode
+		def currLocation = params.mylocation
+		def boolean geoSim = false;
+		def tZip
+		def centerLat
+		def centerLong
+		def zoom
+		
+		if (currLocation == null || currLocation.equals("") || currLocation.equals("false")) {
+			tZip = params.zipcode
+			zoom = 13
+		}
+		else {
+			geoSim = true
+			centerLat = "37.80013";
+			centerLong = "-122.2717";
+			tZip = "94607"
+			zoom = 19
+		}
+		
 		def restaurantList = restaurantService.findZipCodes(tZip)
-		//render restList  as JSON
-		def resultList = []
+		def SearchResultsDTO resultsDTO = new SearchResultsDTO()
+		resultsDTO.restaurants = []
 		for (restaurant in restaurantList){
 			def restaurantDTO = new RestaurantDTO()
 			restaurantDTO.id = restaurant.id
@@ -83,12 +102,23 @@ class ZipController {
 			for (review in reviewList){
 				restaurantDTO.reviews << review
 			}
-			//restaurantDTO.reviews = reviewList
-			resultList << restaurantDTO
+			resultsDTO.restaurants << restaurantDTO
 		}
+		
+		resultsDTO.zoom = zoom
+		if (geoSim){
+			resultsDTO.centerLatitude = centerLat
+			resultsDTO.centerLongitude = centerLong
+		}
+		else {
+			def RestaurantDTO restaurantDTO = resultsDTO.restaurants[0]
+			resultsDTO.centerLatitude = restaurantDTO.latitude
+			resultsDTO.centerLongitude = restaurantDTO.longitude
+		}
+		
 		JSON.use('deep')
-		def restJSON = resultList as JSON
-		render resultList as JSON
+		//def restJSON = resultsDTO as JSON
+		render resultsDTO as JSON
 	}
 	
 	def ReviewDTO createEmptyReviews(String type){

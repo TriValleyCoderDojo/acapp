@@ -15,6 +15,7 @@ class RestaurantDTO {
 	String url
 	
 	static hasMany = [ reviews : ReviewDTO ]
+	static belongsTo = [ search : SearchResultsDTO ]
 	static mapWith = "none"
 	
 }
