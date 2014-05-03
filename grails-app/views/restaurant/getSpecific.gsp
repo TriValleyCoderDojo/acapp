@@ -34,14 +34,10 @@
 						</tr>
 						<tr>
 							<td>Website:</td>
-							<td>${restDetail.url}</td>
+							<td><a href="${restDetail.url}" target="_blank">${restDetail.name} Website</a></td>
 						</tr>
 						<tr>
-							<td>Health Rating:</td>
-							<td>${restDetail.currGrade}</td>
-						</tr>
-						<tr>
-							<td>Health Rating:</td>
+							<td>Last Inspection Rating:</td>
 							<td>${restDetail.currGrade}</td>
 						</tr>
 						<tr>
