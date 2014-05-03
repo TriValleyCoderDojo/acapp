@@ -104,9 +104,15 @@
 				<li><a href="${createLink(uri:'/restaurant/index.gsp')}">By Name</a></li>
 			</ul>
 		</div>
-		<H4>Enter Zip Code</H4>
+		<H4>Search By Zip Code or Current Location</H4>
+		<br>
 		<form name='mapForm'>
+		    <label>Zip Code: </label>
 			<input type="text" id="formValueId" name="valueId"/>
+			<br>
+			<label>Use My Current Location</label>
+			<input type="checkbox" id="mylocation" value="mylocation">
+			<br>
 			<input type="submit" value="Make Map" onclick="callAjax(this.form.valueId.value); return false;"/>
 		</form>
 		
