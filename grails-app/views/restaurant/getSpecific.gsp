@@ -29,6 +29,14 @@
 							<td>${restDetail.zip}</td>
 						</tr>
 						<tr>
+							<td>Phone Number:</td>
+							<td>${restDetail.phone}</td>
+						</tr>
+						<tr>
+							<td>Website:</td>
+							<td>${restDetail.url}</td>
+						</tr>
+						<tr>
 							<td>Health Rating:</td>
 							<td>${restDetail.currGrade}</td>
 						</tr>
