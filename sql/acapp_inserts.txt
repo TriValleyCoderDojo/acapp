@@ -1,0 +1,7 @@
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url)  values (7, 1, "Chinese", 0, 4, 3357, "Google", "https://plus.google.com/101449956143090065701/about?gl=us&hl=en");
+
+
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url)  values (8, 1, "Chinese", 0, 3.7, 3362, "Google", "https://plus.google.com/101226139498750373029/about?hl=en&gl=us");
+
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url)  values (9, 1, "Generic", 0, 4.4, 3787, "Google", "https://plus.google.com/109580974276444530962/about?hl=en&gl=us");
+
