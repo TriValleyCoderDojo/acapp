@@ -4,9 +4,11 @@
 		<meta name="layout" content="main"/>
 		<title>Zip Code Search Map</title>
 		<g:javascript library="jquery"/>
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false" type="text/javascript"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false&libraries=visualization" type="text/javascript"></script>
 		<r:layoutResources/>
 		<g:javascript>
+		var crime_api = "http://data.acgov.org/resource/2k95-y89t.json";
+		var crime_data = null; 
 		function callAjax(zipcode, usegeo){
 		//	alert("Enter callAjax with " + zipcode + " and " + usegeo)
 			$.ajax({
@@ -19,25 +21,46 @@
 					if (response.restaurants.length == 0){
 						return;
 					}
+					
+					// get the crime data from the socrata API endpoint
+						$.ajax({
+							url: "http://data.acgov.org/resource/2k95-y89t.json",
+							type: "get",
+							data: {'zip': zipcode},
+							dataType: "json",
+							success: function(res){
+								console.log(res);
+								crime_data = res;
+							}
+						});
+					
+					
 					var map = new google.maps.Map(document.getElementById('map'), {
 						zoom: response.zoom,
 						center: new google.maps.LatLng(response.centerLatitude, response.centerLongitude),
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					});
 					
+					
+						// heatmap crime data stuff.
+					
+						var m;
+						var heatmapData = [];	
+						for (var i in crime_data){
+							//heatmapData.push(new google.maps.LatLng(crime_data[i].location_1.latitude, crime_data[i].location_1.longitude));
+							
+							m = new google.maps.Marker({
+								position: new google.maps.LatLng(crime_data[i].location_1.latitude, crime_data[i].location_1.longitude),
+								map: map,
+								icon: 'http://localhost:8080/acapp/images/icon_cry.gif'
+							});
+						}
+					/*console.log(heatmapData);
+					var pointArray = new google.maps.MVCArray(heatmapData);
+					heatmap = new google.maps.visualization.HeatmapLayer({data:pointArray});
+					heatmap.setMap(map);*/
+
 					var marker;
-					
-					marker = new google.maps.Marker({
-							position: new google.maps.LatLng(response.centerLatitude, response.centerLongitude),
-							map: map
-						});
-						google.maps.event.addListener(marker, 'click', (function(marker, i) {
-							return function() {
-								infowindow.setContent("Current location");
-								infowindow.open(map, marker);
-							}
-						})(marker, i));
-					
 					var i, currGrade;
 					for (var i in response.restaurants) {
 						currGrade = response.restaurants[i].currGrade;
@@ -57,6 +80,7 @@
 						}
 						if (currGrade == "Y"){ 
 								marker = new google.maps.Marker({
+
 								position: new google.maps.LatLng(response.restaurants[i].latitude, response.restaurants[i].longitude),
 								map: map,
 								icon: 'http://localhost:8080/acapp/images/yellow_marker.png'
@@ -99,7 +123,9 @@
 								infowindow.open(map, marker);
 							}
 						})(marker, i));
+					
 					}
+				
 					
 				},
 				error: function(xhr){
