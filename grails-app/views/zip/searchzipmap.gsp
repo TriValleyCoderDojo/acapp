@@ -61,6 +61,18 @@
 					heatmap.setMap(map);*/
 
 					var marker;
+					if (response.zoom == 19){
+						marker = new google.maps.Marker({
+							position: new google.maps.LatLng(response.centerLatitude, response.centerLongitude),
+							map: map
+						});
+						google.maps.event.addListener(marker, 'click', (function(marker, i) {
+							return function() {
+								infowindow.setContent('Current location');
+								infowindow.open(map, marker);
+							}
+						})(marker, i));
+					}
 					var i, currGrade;
 					for (var i in response.restaurants) {
 						currGrade = response.restaurants[i].currGrade;
@@ -91,7 +103,8 @@
 						google.maps.event.addListener(marker, 'click', (function(marker, i) {
 							var infowindow = new google.maps.InfoWindow();
 							
-							var review1 = '<p>' + response.restaurants[i].reviews[0].reviewType + ': Rating-'
+							var review1 = '<p><a href="' + response.restaurants[i].reviews[0].url + 
+							'" target="_blank">' + response.restaurants[i].reviews[0].reviewType  + '</a>' + ': Rating-';
 							if (response.restaurants[i].reviews[0].dollarRating == -1){
 								review1 = review1 + 'Unknown, Dollars-Unknown';
 							}
@@ -100,7 +113,8 @@
 							}
 							review1 = review1 + '</p>';
 							
-							var review2 = '<p>' + response.restaurants[i].reviews[1].reviewType + ': Rating-'
+							var review2 = '<p><a href="' + response.restaurants[i].reviews[1].url + 
+							'" target="_blank">' + response.restaurants[i].reviews[1].reviewType  + '</a>' + ': Rating-';
 							if (response.restaurants[i].reviews[1].dollarRating == -1){
 								review2 = review2 + 'Unknown, Dollars-Unknown';
 							}

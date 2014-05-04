@@ -42,7 +42,7 @@ class ZipController {
 		def centerLong
 		def zoom
 		
-		if (currLocation == null || currLocation.equals("") || currLocation.equals("false")) {
+		if (currLocation.equals("false")) {
 			tZip = params.zipcode
 			zoom = 13
 		}

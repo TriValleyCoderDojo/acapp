@@ -126,6 +126,13 @@ values (3, 1, "American", 3, 3, 4325, "Google", "www.someplace.com");
 INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
 values (4, 1, "Western", 3, 3, 4325, "Yelp", "www.someplace.com");
 
+NEW YING KEE NOODLE
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
+values (5, 1, "Chinese", 1, 4, 3357, "Google", "http://plus.google.com/101449956143090065701");
+INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
+values (6, 1, "Chinese", 1, 3.5, 3357, "Yelp", "http://www.yelp.com/biz/ying-kee-restaurant-oakland");
+
+
 
 UPDATE restaurant SET phone="(925) 484-5588" WHERE id = 4325;
 UPDATE restaurant SET url="http://www.urbanspoon.com/cities/6-sf-bay-area/restaurants/764695-sozo-sushi-restaurant/menu" WHERE id = 4325;
@@ -133,6 +140,8 @@ UPDATE restaurant SET url="http://www.urbanspoon.com/cities/6-sf-bay-area/restau
 
 UPDATE review SET url="http://www.yelp.com/biz/sozo-sushi-restaurant-pleasanto" WHERE id = 4;
 UPDATE review SET rating=3.5, SET dollar_rating =2  WHERE id = 4;
+
+UPDATE review SET url="http://plus.google.com/101449956143090065701/" WHERE id = 5;
 
 
 select * from review where restaurant_id = 2;
