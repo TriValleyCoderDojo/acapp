@@ -11,11 +11,9 @@ class AdminController {
 	
 	def index() { }
 	
+	// admin function to process the grades for the first time
 	def createCurrGrades() {
-		
 		restaurantService.processGrades();
-		
-		
 		render (view:'index.gsp')
 	}
 }

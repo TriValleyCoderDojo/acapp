@@ -16,11 +16,11 @@
 			<br>
 			<H1>Welcome to Zip Code Search Landing page</H1>
 			<br>
-			<a href="${createLink(uri:'/zip/listzips.gsp')}">List All Zip Codes</a>
+			<H2><a href="${createLink(uri:'/zip/listzips.gsp')}">List All Zip Codes</a></H2>
 			<br>
-			<a href="${createLink(uri:'/zip/searchzipmap.gsp')}">Map of Restaurants in Zip Code</a>
+			<H2><a href="${createLink(uri:'/zip/searchzipmap.gsp')}">Map of Restaurants in Zip Code</a></H2>
 			<br>
-			<H1>Table List of Restaurants in Zip Code</H1>
+			<H2>Table List of Restaurants in Zip Code</H2>
 			<g:form action="searchziplist" method="GET">
 				<g:textField name="query" value=""/>
 				<g:submitButton name="listresult" value="Get List" />

@@ -32,7 +32,12 @@ class ZipController {
 	def searchzipmap() {
 	}
 	
-	
+	/*
+	 * This method is called by the AJAX call from the map.  It can have two parameters
+	 *   1) checkbox indicating use current location (mylocation)
+	 *   2) zip code to use in map results (zipcode)
+	 * It will return the data that gets returned to the map.  
+	 */
 	def getMapData() {
 		
 		def currLocation = params.mylocation
@@ -47,14 +52,20 @@ class ZipController {
 			zoom = 13
 		}
 		else {
+			//FIXME: this is where we are statically defining a geolocation
 			geoSim = true
 			centerLat = "37.80013";
 			centerLong = "-122.2717";
 			tZip = "94607"
+			// want the geolocation to have a tighter zoom
 			zoom = 19
 		}
 		
+		// make a service call to get all of the restaurants in the zip code of interest
 		def restaurantList = restaurantService.findZipCodes(tZip)
+		
+		// step thru all the restaurants and format for what the map is expecting
+		// only want to send the data that the map can use, don't want to send everything
 		def SearchResultsDTO resultsDTO = new SearchResultsDTO()
 		resultsDTO.restaurants = []
 		for (restaurant in restaurantList){
@@ -68,6 +79,7 @@ class ZipController {
 			restaurantDTO.latitude = restaurant.latitude
 			restaurantDTO.longitude = restaurant.longitude
 			restaurantDTO.currGrade = restaurant.currGrade
+			// make sure these have a value to display
 			if (restaurant.phone == null || restaurant.phone.empty){
 				restaurantDTO.phone = restaurant.phone
 			}
@@ -82,6 +94,7 @@ class ZipController {
 			}
 			def reviewList = []
 			if (restaurant.reviews != null && restaurant.reviews.size() > 0){
+				// add the review data
 				for (review in restaurant.reviews){
 					def reviewDTO = new ReviewDTO()
 					reviewDTO.reviewType = review.reviewType
@@ -93,6 +106,7 @@ class ZipController {
 				}
 			}
 			else {
+				// create placeholder review data
 				def reviewDTO = createEmptyReviews("Google")
 				reviewList << reviewDTO
 				reviewDTO = createEmptyReviews("Yelp")
@@ -117,7 +131,6 @@ class ZipController {
 		}
 		
 		JSON.use('deep')
-		//def restJSON = resultsDTO as JSON
 		render resultsDTO as JSON
 	}
 	

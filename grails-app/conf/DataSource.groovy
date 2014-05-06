@@ -21,7 +21,7 @@ environments {
 	development {
 		dataSource {
 			dbCreate="update"
-			//dbCreate = "create-drop"
+			//dbCreate = "create"
 			username="acappuser"
 			password="acappuser"
 			url="jdbc:mysql://bobdev:3306/acapp"

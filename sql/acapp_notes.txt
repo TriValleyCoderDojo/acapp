@@ -2,9 +2,15 @@
 mysql -u root -p
 root
 
-create database acapp;
-use acapp;  
+---------------------------------------------------
 
+-- create a data and start using it
+create database acapp;
+use acapp;
+
+---------------------------------------------------
+
+-- create a database user for tghe web app to use
 CREATE USER 'acappuser'@'bobdev' IDENTIFIED BY 'acappuser';
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'acappuser'@'bobdev';
 GRANT SELECT,INSERT,UPDATE,DELETE,LOCK TABLES,EXECUTE ON acapp.* TO 'acappuser'@'bobdev';
@@ -12,10 +18,13 @@ GRANT CREATE,DROP ON acapp.* TO 'acappuser'@'bobdev';
 GRANT ALTER ON acapp.* TO 'acappuser'@'bobdev';
 FLUSH PRIVILEGES;
 
+-- test logging in with the user created above
 mysql -h bobdev -u acappuser -D acapp -p
 mysql -u acappuser -D acapp -p
 
+---------------------------------------------------
 
+-- create new tables in the acapp database
 CREATE TABLE restaurant (
     id bigint(20) NOT NULL AUTO_INCREMENT, 
     version bigint(20),
@@ -32,7 +41,8 @@ CREATE TABLE restaurant (
     phone VARCHAR(255),
     url VARCHAR(255),
     PRIMARY KEY (id));
-
+    
+    
 CREATE TABLE inspection (
     id bigint(20) NOT NULL AUTO_INCREMENT, 
     version bigint(20),
@@ -42,23 +52,9 @@ CREATE TABLE inspection (
     grade VARCHAR(10), 
     restaurant_id bigint(20),
     PRIMARY KEY (id),
-    CONSTRAINT FK_INSPECT_RESTAUR FOREIGN KEY (restaurant_id) references restaurant (id)
+    KEY FK686B0D7494B6F2F4 (restaurant_id),
+    CONSTRAINT FK686B0D7494B6F2F4 FOREIGN KEY (restaurant_id) REFERENCES restaurant (id)
 );
-
-
-ALTER TABLE restaurant ADD COLUMN phone VARCHAR(255);
-ALTER TABLE restaurant ADD COLUMN url VARCHAR(255);
-
-ALTER TABLE restaurant ADD COLUMN curr_grade VARCHAR(10);
-
-ALTER TABLE restaurant DROP COLUMN yelp_rating;
-ALTER TABLE restaurant DROP COLUMN yelp_dollars;
-
-ALTER TABLE restaurant ADD COLUMN phone VARCHAR(255);
-ALTER TABLE restaurant ADD COLUMN url VARCHAR(255);
-UPDATE restaurant SET phone="";
-UPDATE restaurant SET url="";
-
 
 CREATE TABLE review (
   id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -74,24 +70,22 @@ CREATE TABLE review (
   CONSTRAINT FKC84EF75894B6F2F4 FOREIGN KEY (restaurant_id) REFERENCES restaurant (id)
 );
 
-
-ALTER TABLE review MODIFY rating DECIMAL(3,1);
-
-GRADE is grading system: G - Green, Y - Yellow, R - Red, have some old data with P for Pass and some with empty grade
-
+-- in case you need to start over
 DROP TABLE inspection;
 DROP TABLE restaurant;
+DROP TABLE review;
+
+---------------------------------------------------
+
+-- some SQL to explore the data
 
 SELECT COUNT(*) FROM restaurant;
-use acapp; 
+SELECT count(*) FROM inspection;
 
 SELECT * FROM restaurant;
 SELECT * FROM inspection;
 SELECT * FROM restaurant LIMIT 10;
 SELECT * FROM inspection LIMIT 10;
-
-SELECT count(*) FROM restaurant;
-SELECT count(*) FROM inspection;
 
 SELECT id from restaurant WHERE NAME = 'SOME NAME';
 SELECT * from restaurant WHERE NAME LIKE "Sozo%";
@@ -116,56 +110,22 @@ SELECT * FROM review where restaurant_id = 4325;
 SELECT id, name, zip, curr_grade, green_cnt, yellow_cnt, red_cnt FROM restaurant WHERE curr_grade = 'R';
 SELECT id, name, zip, curr_grade, count(zip) FROM restaurant WHERE curr_grade = 'R' group by zip;
 
-INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
-values (1, 1, "American", 3, 3, 2, "Google", "www.someplace.com");
-INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
-values (2, 1, "Western", 3, 3, 2, "Yelp", "www.someplace.com");
+---------------------------------------------------
 
-INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
-values (3, 1, "American", 3, 3, 4325, "Google", "www.someplace.com");
-INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
-values (4, 1, "Western", 3, 3, 4325, "Yelp", "www.someplace.com");
-
-NEW YING KEE NOODLE
-INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
-values (5, 1, "Chinese", 1, 4, 3357, "Google", "http://plus.google.com/101449956143090065701");
-INSERT INTO review (id, version, cuisine, dollar_rating, rating, restaurant_id, review_type, url) 
-values (6, 1, "Chinese", 1, 3.5, 3357, "Yelp", "http://www.yelp.com/biz/ying-kee-restaurant-oakland");
-
+-- some SQL to update the data
 
 
 UPDATE restaurant SET phone="(925) 484-5588" WHERE id = 4325;
 UPDATE restaurant SET url="http://www.urbanspoon.com/cities/6-sf-bay-area/restaurants/764695-sozo-sushi-restaurant/menu" WHERE id = 4325;
-
 
 UPDATE review SET url="http://www.yelp.com/biz/sozo-sushi-restaurant-pleasanto" WHERE id = 4;
 UPDATE review SET rating=3.5, SET dollar_rating =2  WHERE id = 4;
 
 UPDATE review SET url="http://plus.google.com/101449956143090065701/" WHERE id = 5;
 
-
-select * from review where restaurant_id = 2;
-
-select * from restaurant as rest, review as rev where rest.id = rev.restaurant_id;
-
-name = SOZO SUSHI
-id - 4325
-phone - (925) 484-5588
-url - http://www.urbanspoon.com/cities/6-sf-bay-area/restaurants/764695-sozo-sushi-restaurant/menu
-
-yelp url - http://www.yelp.com/biz/sozo-sushi-restaurant-pleasanton
-yelp rating - 3.5
-yelp dollars - 2
-
-google url - https://www.google.com/search?q=sql+drop+column&oq=SQL+drop+col&aqs=chrome.1.69i57j0l5.6758j0j8&sourceid=chrome&espv=2&es_sm=119&ie=UTF-8#q=sozo+sushi&lrd=lrd
-google rating - 3.9
-google dollars - 1
-
-badly formatted rest/inspection recs: 9269
-good rest recs: 5368
-total valid inspections = 51,982
-
 ---------------------------------------------------
+
+These are the command to backup and restore the database.
 
 export database
 mysqldump -u root -p acapp > acapp.sql
@@ -173,9 +133,11 @@ mysqldump -u root -p acapp > acapp.sql
 restore database
 mysql -u root -p acapp < acapp.sql
 
+There is a copy of the database in the project and can be used to initialize the database.  
+
 -----------------------------------------------------
 
-Connect to MySQL database
+Grails configuration to connect to MySQL database
 
 1) add the driver jar to acapp/lib
 
@@ -184,7 +146,14 @@ Connect to MySQL database
 	a) change the driver in driverClassName in dataSource {}
 	b) change the environments {} for all three
 
+The value of the dbCreate propery in the DataSource.groovy is very important
 
+Hibernate can automatically create the database tables required for your domain model. You have some control 
+over when and how it does this through the dbCreate property, which can take these values:
 
-
+create - Drops the existing schemaCreates the schema on startup, dropping existing tables, indexes, etc. first.
+create-drop - Same as create, but also drops the tables when the application shuts down cleanly.
+update - Creates missing tables and indexes, and updates the current schema without dropping any tables or data. Note that this can't properly handle many schema changes like column renames (you're left with the old column containing the existing data).
+validate - Makes no changes to your database. Compares the configuration with the existing database schema and reports warnings.
+any other value - does nothing
 

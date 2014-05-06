@@ -12,8 +12,6 @@ class Restaurant {
 	Integer greenCnt
 	Integer yellowCnt
 	Integer redCnt
-	//Integer yelpRating
-	//Integer yelpDollars
 	String currGrade
 	String phone
 	String url
