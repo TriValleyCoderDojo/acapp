@@ -102,27 +102,8 @@
 						// now create the info windows for each 
 						google.maps.event.addListener(marker, 'click', (function(marker, i) {
 							var infowindow = new google.maps.InfoWindow();
-							
-							//var review1 = '<p><a href="' + response.restaurants[i].reviews[0].url + '" target="_blank">' + response.restaurants[i].reviews[0].reviewType  + '</a>' + ': Rating-';
-							//if (response.restaurants[i].reviews[0].dollarRating == -1){
-							//	review1 = review1 + 'Unknown, Dollars-Unknown';
-							//}
-							//else {
-							//	review1 = review1 + response.restaurants[i].reviews[0].rating + ', Dollars-' + response.restaurants[i].reviews[0].dollarRating;
-							//}
-							//review1 = review1 + '</p>';
-							//
-							//var review2 = '<p><a href="' + response.restaurants[i].reviews[1].url + '" target="_blank">' + response.restaurants[i].reviews[1].reviewType  + '</a>' + ': Rating-';
-							//if (response.restaurants[i].reviews[1].dollarRating == -1){
-							//	review2 = review2 + 'Unknown, Dollars-Unknown';
-							//}
-							//else {
-							//	review2 = review2 + response.restaurants[i].reviews[1].rating + ', Dollars-' + response.restaurants[i].reviews[1].dollarRating;
-							//}
-							//review2 = review2 + '</p>';
-							
 							var contentString = 
-								'<div id="content">'+
+								'<div id="content" class="map-content">'+
 								'<h3>' + response.restaurants[i].name + '</h3>' +
 								'<p>Address: ' + response.restaurants[i].address + '</p>' +
 								'<p>' + response.restaurants[i].city + ', ' + response.restaurants[i].zip + '</p>' +
@@ -133,12 +114,12 @@
 							for (var j in response.restaurants[i].reviews) {
 								var review = '<p>';
 								if (response.restaurants[i].reviews[j].dollarRating == -1){
-									review = review + response.restaurants[i].reviews[j].reviewType + ': Rating-TBD, Dollars-TBD';
+									review = review + response.restaurants[i].reviews[j].reviewType + ': Rating- TBD, Dollars- TBD';
 								}
 								else {
 									review = review + '<a href="' + response.restaurants[i].reviews[j].url + 
-										'" target="_blank">' + response.restaurants[i].reviews[j].reviewType  + '</a>' + ': Rating-' +
-										response.restaurants[i].reviews[j].rating + ', Dollars-' + response.restaurants[i].reviews[j].dollarRating;
+										'" target="_blank">' + response.restaurants[i].reviews[j].reviewType  + '</a>' + ': Rating- ' +
+										response.restaurants[i].reviews[j].rating + ', Dollars- ' + response.restaurants[i].reviews[j].dollarRating;
 								}
 								review = review + '</p>';
 								contentString = contentString + review

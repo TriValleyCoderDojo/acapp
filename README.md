@@ -32,5 +32,5 @@ To be able to create an instance for yourself, you would need to:
 2. Download and install GGTS 
 3. Clone the project
 4. Import the starter database in the project directory sql, refer to the acapp_notes.txt file for more information
-5. You should be able to start the app at this point
+5. You should be able to start the app and go to the URL http://localhost:8080/acapp in a browser
 

@@ -595,3 +595,8 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+.map-content {
+	height: 160px;
+	width: 195px;
+}

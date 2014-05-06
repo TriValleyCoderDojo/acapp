@@ -54,9 +54,9 @@
 			<h2>Reviews</h2>
 			<div class="table">
 				<table>
-					<tr><th>Source</th><th>Rating</th></tr>
+					<tr><th>Source</th><th>Rating</th><th>Dollar Rating</th><th>Cuisine</th><th>Review Info</th></tr>
 					<g:each var="review" in="${restDetail.reviews}">
-					<tr><td>${review.reviewType}</td><td>${review.rating}</td></tr>
+					<tr><td>${review.reviewType}</td><td>${review.rating}</td><td>${review.dollarRating}</td><td>${review.cuisine}</td><td><a href="${review.url}" target="_blank">Review Link</a></td></tr>
 					</g:each>
 				</table>
 			</div>
@@ -64,7 +64,7 @@
 			<div class="table">
 				<table>
 					<tr><th>Date</th><th>Grade</th><th>Description</th></tr>
-					<g:each var="inspection" in="${restDetail.inspections}">
+					<g:each var="inspection" in="${restDetail.inspections.sort{ it.date }.reverse() }">
 					<tr>
 						<td><g:formatDate format="yyyy-MM-dd" date="${inspection.date}"/></td>
 						<td>${inspection.grade}</td><td>${inspection.description}</td>

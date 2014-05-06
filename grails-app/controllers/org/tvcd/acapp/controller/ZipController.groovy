@@ -81,16 +81,16 @@ class ZipController {
 			restaurantDTO.currGrade = restaurant.currGrade
 			// make sure these have a value to display
 			if (restaurant.phone == null || restaurant.phone.empty){
-				restaurantDTO.phone = restaurant.phone
-			}
-			else {
 				restaurantDTO.phone = "Unknown"
 			}
+			else {
+				restaurantDTO.phone = restaurant.phone
+			}
 			if (restaurant.url == null || restaurant.url.empty){
-				restaurantDTO.url = restaurant.url
+				restaurantDTO.url = "Unknown"
 			}
 			else {
-				restaurantDTO.url = "Unknown"
+				restaurantDTO.url = restaurant.url
 			}
 			def reviewList = []
 			if (restaurant.reviews != null && restaurant.reviews.size() > 0){
