@@ -1,7 +1,7 @@
 acapp
 =====
 
-Alameda Count App Challenge
+Alameda County App Challenge Project
 
 This is the project that the TriValley CoderDojo created for the 
 Alameda County (AC) App Challenge in May 2014.  This is an enhancement 
@@ -12,12 +12,12 @@ The problem with the current AC application is that it only provides
 health inspection information, which is not how people decide upon a 
 restaurant.  They will ask a series of questions in a specific order
 
-* What is close to me?
-* What kind of food does it have?
-* Is the food good?
-* Is the food expensive?
-* Is it in a good neighborhood?
-* Do they have any health violations?
+1. What is close to me?
+2. What kind of food does it have?
+3. Is the food good?
+4. Is the food expensive?
+5. Is it in a good neighborhood?
+6. Do they have any health violations?
 
 As you can see the question of health violations is the last one asked.
 Wouldn't it be great to have one app that gives you all the information
@@ -28,9 +28,9 @@ is backed with a MySQL database.
 
 To be able to create an instance for yourself, you would need to:
 
-* Dowload and install MySQL
-* Download and install GGTS 
-* Clone the project
-* Import the starter database in the project directory sql, refer to the acapp_notes.txt file for more information
-* You should be able to start the app at this point
+1. Dowload and install MySQL
+2. Download and install GGTS 
+3. Clone the project
+4. Import the starter database in the project directory sql, refer to the acapp_notes.txt file for more information
+5. You should be able to start the app at this point
 
